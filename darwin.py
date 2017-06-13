@@ -1,30 +1,29 @@
-import matplotlib.pyplot as plt
 import numpy as np
-import time
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
-WEAK = 0
-DUMP = 50
-SMART = 100
-NORMAL = 200
-STRONG = 300
+ON = 255
+OFF = 0
 
-def generate_random_wordl(N):
-	return(np.random.choice([WEAK,NORMAL,STRONG],N*N,p=[0.4,0.5,0.1]).reshape(N,N))
+def criaMundo(N):
+	return(np.random.choice([ON,OFF],N*N,p=[0.5,0.5]).reshape(N,N))
 
-def update(world):
-	tam = world.size
-	print(tam)
+def atualizaMundo(frameNum, world):
+    if(world[0,0] == OFF):
+    	world[0,0]=ON
+    else:
+    	world[0,0]=OFF
 
-'''xseno = np.linspace(0,2*np.pi,50,0.1)
-yseno = np.sin(xseno)
-ycos = np.cos(xseno)'''
-mundo = generate_random_wordl(20)
-plt.imshow(mundo)
-for x in range(10):
-	update(mundo)
+def main():
+
+	fig1 = plt.figure()
+	mundo = criaMundo(4)
+	print(mundo)
+	img = plt.imshow(mundo)
+
+	animacao = animation.FuncAnimation(fig1, atualizaMundo, fargs=(mundo.all))
+
 	plt.show()
-	time.sleep(1)
-#plt.plot(xseno,ycos)
 
-
-
+if __name__ == '__main__':
+	main()
