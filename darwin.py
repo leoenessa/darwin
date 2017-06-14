@@ -1,28 +1,28 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import time
 
 ON = 255
 OFF = 0
 
 def criaMundo(N):
-	return(np.random.choice([ON,OFF],N*N,p=[0.5,0.5]).reshape(N,N))
+	#return(np.random.choice([ON,OFF],N*N,p=[0.5,0.5]).reshape(N,N))
+	return(np.random.choice([ON,OFF],N*N,p=[0.5,0.5]).reshape(4,4))
 
-def atualizaMundo(frameNum, world):
-    if(world[0,0] == OFF):
-    	world[0,0]=ON
-    else:
-    	world[0,0]=OFF
+def atualizaMundo(mundo,N):
+    mundo = np.random.choice([ON,OFF],N*N,p=[0.3,0.7].reshape(4,4))
+    return mundo
 
 def main():
 
-	fig1 = plt.figure()
-	mundo = criaMundo(4)
-	print(mundo)
-	img = plt.imshow(mundo)
-
-	animacao = animation.FuncAnimation(fig1, atualizaMundo, fargs=(mundo.all))
-
+	N = 4
+	mundo = criaMundo(N)
+	fig1,ax = plt.subplots()
+	img = ax.imshow(mundo)
+		
+	animacao = animation.FuncAnimation(fig1, atualizaMundo, (mundo,N,))
+	
 	plt.show()
 
 if __name__ == '__main__':
